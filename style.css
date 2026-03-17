@@ -1,0 +1,515 @@
+/* 这是一个注释，用来解释代码的作用 */
+
+/* 选中整个网页的根元素（也就是 <body> 标签） */
+body {
+    /* 1. 设置背景图片的路径 */
+    background-image: url("images/background.png"); 
+
+    /* 2. 让图片自动缩放以覆盖整个屏幕 */
+    background-size: cover; 
+
+    /* 3. 图片不重复 */
+    background-repeat: no-repeat;
+
+    /* 4. 图片居中显示 */
+    background-position: center;
+
+    /* 5. (可选) 如果图片加载失败，显示一个背景色 */
+    background-color: #000000; 
+    min-height: 200vh;
+    /* 7. 让内容居中显示 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:  flex-start;
+    padding-top: 0px;
+}
+
+/* logo 样式 */
+.logo {
+    margin-top: 50px;  /* 负值让 Logo 向上移动，数值越大越往上 */
+    width: 500px;  /* 可以调整 logo 大小 */
+    opacity: 0;  /* 初始透明 */
+    animation: fadeInDown 2s ease-in-out forwards;  /* 2秒渐变动画 */
+}
+
+/* 从上到下渐变显示动画 */
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);  /* 从上方50px开始 */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);  /* 到正常位置 */
+    }
+
+}
+/* 1. 选中那个“看不见的盒子” */
+.btn-container {
+    position: fixed;  /* 固定定位 */
+    bottom: 20px;     /* 距离底部 */
+    right: 20px;      /* 距离右侧 */
+    display: flex;    /* 核心：让里面的按钮横着排 */
+    gap: 15px;        /* 按钮之间的间距 */
+    z-index: 9999;    /* 保证在最上层 */
+}
+
+/* 2. 修改按钮的样式（微调） */
+.nav-btn {
+    /* [尺寸] 设置按钮固定宽度为 200px，确保能容纳两个大字 */
+    width: 200px; 
+
+    /* [尺寸] 设置按钮固定高度为 100px，决定按钮的上下边界 */
+    height: 100px; 
+
+    /* [排版] 强制文字不换行，防止文字被挤到第二行 */
+    white-space: nowrap; 
+    display: flex;       /* 启用Flex让文字在按钮内居中 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */ 
+
+    /* [背景] 设置背景色为半透明黑色 (透明度 0.5) */
+    background-color: rgba(0, 0, 0, 0.5);
+
+    /* [文字] 设置文字颜色为白色 */
+    color: white; 
+
+    /* [边框] 设置 3px 宽的半透明白色边框 */
+    border: 3px solid rgba(255, 255, 255, 0.3);
+
+    /* [间距] 设置左边距 80px (注意：这会让第一个按钮也向右偏移 80px) */
+    margin-left: 80px; 
+
+    /* [形状] 设置圆角半径为 20px，让按钮边角变圆润 */
+    border-radius: 20px;
+
+    /* [交互] 鼠标悬停时显示手型指针，提示可点击 */
+    cursor: pointer;
+
+    /* [文字] 设置字体大小为 80px (注意：字很大，几乎占满 100px 的高度) */
+    font-size: 80px;
+
+    /* [交互] 去除点击时的默认蓝色轮廓线 */
+    outline: none;
+
+  /* 【重要修复】删除了 margin-left，防止按钮被挤飞 */
+    margin: 0; 
+}
+
+/* 鼠标悬停效果（可选） */
+.nav-btn:hover {
+    background-color: rgba(221, 113, 70, 0.4);
+}
+
+
+/* --- CG 全屏遮罩样式 --- */
+/* --- CG 全屏遮罩样式 --- */
+.ui-overlay {
+    /* 1. 默认隐藏 */
+    display: none; 
+    
+    /* 2. 全屏覆盖 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    
+    /* 3. 背景图设置 */
+    background-image: url('images/UI.png'); 
+    background-size: cover;
+    background-position: center;
+    background-color: #000; /* 防止图片加载失败时透明 */
+    
+    /* 4. 层级最高 */
+    z-index: 9999; 
+    /* 👇 加上这个，图片区域就会整体下移 */
+    justify-content: center; 
+    
+    /* 保持水平居中 */
+    align-items: center; 
+}
+
+/* 返回按钮样式 */
+.back-btn {
+    /* 【关键修改】绝对定位到右下角 */
+    position: absolute;
+    bottom: 30px;  
+    right: 30px;   
+    
+    /* 按钮外观 */
+    padding: 12px 24px;
+    font-size: 16px;
+    background-color: rgba(0, 0, 0, 0.6); 
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10000; /* 确保按钮在遮罩层之上 */
+}
+
+/* 鼠标悬停效果 */
+.back-btn:hover {
+    background-color: rgba(158, 105, 105, 0.8);
+    transform: scale(1.05);
+}
+
+/* 【新增】全屏图片的样式 (确保图片不会溢出且保持比例) */
+.ui-overlay img {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* ================= 2024 最终修正版：完美匹配您的 HTML ================= */
+
+/* 1. 容器设置：隐藏溢出，防止出现滚动条 */
+.cg-container {
+    width: 100%;
+    /* 👇 新增：强制占据剩余所有空间，撑满全屏 */
+    height: auto; 
+    
+    /* 👇 修改：去掉上下 padding，让图片真正顶到边缘 */
+    padding: 0; 
+    
+    background: transparent;
+    
+    /* 👇 新增：确保内部行能正确排列并居中 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;; /* 如果想让三行图片均匀分布，可以改成 space-evenly */
+}
+
+/* 2. 每一行 (.cg-row) 的核心布局 */
+.cg-row {
+    display: flex !important;       /* 强制 Flex 横向排列 */
+    flex-wrap: nowrap !important;   /* 绝不允许换行 */
+    gap: 15px;                      /* 图片间距 */
+    width: max-content;             /* 宽度自适应内容总长 */
+    margin-bottom: 20px;            /* 行间距 */
+    padding: 0 10px;
+    /* 👇 新增：确保行与行之间层级平等，不互相干扰 */
+    isolation: isolate; 
+}
+
+/* 3. 图片样式：直接针对 .cg-row 下的 img */
+.cg-row img {
+    height: 350px;                  /* 统一高度，宽度自动 */
+    width: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: block;                 /* 消除 img 默认的底边空隙 */
+}
+
+/* 4. 定义向左滚动的动画 */
+@keyframes scrollLeft {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* 移动一半，实现无缝 */
+}
+
+/* 5. 定义向右滚动的动画 */
+@keyframes scrollRight {
+    0% { transform: translateX(-50%); } /* 从负一半开始 */
+    100% { transform: translateX(0); }
+}
+
+/* 6. 应用动画：向左的行 */
+.row-left {
+    animation: scrollLeft 80s linear infinite; /* 80秒滚一圈，可调速度 */
+}
+
+/* 7. 应用动画：向右的行 */
+.row-right {
+    animation: scrollRight 80s linear infinite;
+}
+
+/* 8. 鼠标悬停：暂停动画 */
+.row-left:hover, 
+.row-right:hover {
+    animation-play-state: paused !important;
+}
+
+/* 9. 鼠标悬停图片：放大 + 强光晕特效 */
+.cg-row img:hover {
+    transform: scale(1.2);          /* 放大 1.2 倍 */
+    position: relative;             /* 让 z-index 生效 */
+    z-index: 100;
+    border: 3px solid #e0cd5e;
+    box-shadow: 0 0 30px rgba(231, 218, 143, 0.9), 
+                0 0 60px rgba(243, 231, 121, 0.5);
+    /* 5. 确保过渡 */
+    transition: all 0.3s ease;
+}
+
+/* ================================================================ */
+/* 【新增】CG 界面背景层样式 */
+.cg-background {
+    position: absolute; /* 绝对定位，覆盖整个 cg-interface */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 确保它在图片和按钮的后面 */
+    
+    /* 核心：设置背景图 */
+    background-image: url('images/UI.png'); 
+    background-size: cover; /* 自动缩放覆盖 */
+    background-position: center; /* 居中显示 */
+    background-repeat: no-repeat;
+    
+    /* 可选：如果图片加载失败，给个深色底 */
+    background-color: #1a1a1a; 
+}
+
+/* 【重要补充】确保 #cg-interface 是相对定位，否则 .cg-background 的 absolute 会乱跑 */
+#cg-interface {
+    position: relative; 
+    width: 100%;
+    /* 高度可以自适应，或者根据内容设定，这里保持默认即可 */
+}
+
+#fullscreen-overlay {  /* <--- 改成井号 #，匹配 HTML 的 id="..." */
+    display: none;     /* 默认隐藏 */
+    position: fixed;   /* 固定定位 */
+    top: 0;
+    left: 0;
+    width: 100vw;      /* 建议用 vw/vh 确保全屏 */
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95); /* 黑色背景 */
+    z-index: 999999;   /* 最高层级 */
+    
+    /* 关键：Flex 布局用于居中，虽然 JS 会设 display:flex，但这里必须定义 flex 方向 */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+    /* 确保点击能穿透（可选，主要靠 JS 逻辑，但 CSS 写好更稳） */
+    cursor: pointer;
+}
+
+/* 同时也检查一下图片的 ID 选择器是否正确 */
+#fullscreen-img {
+    max-width: 90%;
+    max-height: 85%;
+    object-fit: contain;
+    border: 2px solid #e0cd5e;
+    /* 关键点：让点击事件穿透图片，直接传给 overlay 从而触发关闭 */
+    pointer-events: none; 
+    animation: zoomIn 0.3s ease;
+}
+
+.close-hint {
+    margin-top: 15px;
+    color: #e0cd5e;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+
+
+/* --- 场景全屏遮罩层 --- */
+.scene-overlay {
+    display: none;              /* 默认隐藏 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+/* --- 场景背景图层 --- */
+.scene-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+
+/* --- 场景返回按钮 --- */
+.scene-back-btn {
+    position: absolute;
+    bottom: 30px;  
+    right: 30px;   
+    
+    /* 按钮外观 */
+    padding: 12px 24px;       /* 增加点击区域 */
+    font-size: 16px;          /* 字体稍大 */
+    background-color: rgba(0, 0, 0, 0.6); 
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5); /* 半透明边框，更精致 */
+    border-radius: 8px;       /* 圆角更圆润 */
+    cursor: pointer;
+    
+    /* 平滑过渡动画 */
+    transition: all 0.3s ease;
+    
+    /* 确保按钮在遮罩层之上 */
+    z-index: 10000; 
+}
+
+/* 鼠标悬停效果 */
+.scene-back-btn:hover {
+    background-color: rgba(158, 105, 105, 0.8); /* 悬停时变为红棕色，与 CG 一致 */
+    transform: scale(1.05); /* 轻微放大 */
+    border-color: rgba(255, 255, 255, 0.8); /* 边框变亮 */
+}
+
+/* --- 场景内容容器 --- */
+.scene-content {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;;
+    align-items: center; 
+    flex-direction: column;
+    padding-top: 0;
+    gap: 40px;
+    background-color: rgba(0, 0, 0, 0);
+    overflow: visible !important; /* 防止容器切断光晕 */
+}
+
+/* 场景图片通用样式 */
+#scene-ui-overlay .scene-row img {
+    height: 350px;          /* 图片高度，可根据需要调整 */
+    width: auto;            /* 宽度自适应 */
+    margin: 0 10px;          /* 图片之间的水平间距 */
+    border-radius: 10px;     /* 圆角 */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5); /* 阴影增加立体感 */
+    opacity: 0.9;
+    transition: opacity 0.3s, transform 0.3s;
+    cursor: pointer;
+     /* 👇👇👇 关键修改 👇👇👇 */
+    display: block;       /* 核心：变成块级元素，自动消除基线缝隙 */
+    margin-top: 0;        /* 确保没有上边距 */
+    margin-bottom: 0;     /* 确保没有下边距 */
+     transition: all 0.3s ease; /* 必须加这个，否则放大没有动画 */
+
+}
+
+/* 🔥🔥🔥 关键修改：合并并强化 Hover 特效 🔥🔥🔥 */
+/* 直接使用带 ID 的选择器，确保优先级最高，覆盖掉所有旧规则 */
+/* 🔥 修正后的代码：语法正确，强制覆盖 🔥 */
+#scene-ui-overlay .scene-row img:hover {
+    opacity: 1 !important;
+    transform: scale(1.2) !important;
+    position: relative !important;
+    z-index: 9999 !important;
+    border: 3px solid #e0cd5e !important;
+    
+    /* ✅ 正确写法：!important 放在整个 box-shadow 语句的最后 */
+    box-shadow: 0 0 30px rgba(231, 218, 143, 0.9), 
+                0 0 60px rgba(243, 231, 121, 0.5) !important;
+    
+    /* ✅ 正确写法：!important 放在整个 transition 语句的最后 */
+    transition: all 0.3s ease !important;
+}
+/* --- 滚动动画定义 (关键) --- */
+
+/* 向右滚动 (Row 1 & 3) */
+@keyframes scrollRight {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* 移动一半距离，实现无缝循环 */
+}
+
+/* 向左滚动 (Row 2) */
+@keyframes scrollLeft {
+    0% { transform: translateX(-50%); } /* 从一半位置开始 */
+    100% { transform: translateX(0); }  /* 移回原位 */
+}
+
+/* 可选：如果希望鼠标悬停时暂停滚动，取消下面注释 */
+/*
+#scene-ui-overlay .scene-row:hover {
+    animation-play-state: paused;
+}
+*/
+/* --- 立绘界面样式 (仿照 scene-ui-overlay) --- */
+
+/* 1. 外层容器 */
+.gallery-overlay {
+    display: none; /* 默认隐藏 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+/* 2. 背景层 (复用你提供的 UI.png) */
+.gallery-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('images/UI.png'); /* 这里用了你给的路径 */
+    background-size: cover; /* 确保背景铺满 */
+    background-position: center;
+    z-index: 1;
+}
+
+/* 4. 立绘图片专用样式 (让它居中显示在背景上) */
+.gallery-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%; /* 根据UI背景留白调整大小 */
+    max-height: 80%;
+    object-fit: contain;
+    z-index: 10; /* 确保在背景之上 */
+     /* 【关键修改】允许接收鼠标点击 */
+    pointer-events: auto; 
+    /* 可选：加个手型光标，提示用户可以点击 */
+    cursor: pointer;
+    /* 可选：加个过渡效果，翻页更平滑 */
+    transition: opacity 0.2s ease;
+}
+.gallery-img:hover {
+    filter: brightness(1.05);
+}
+
+
+
+/* 返回按钮 (保持原样，确保 z-index 最高) */
+.scene-back-btn {
+    position: absolute;
+    bottom: 30px;  
+    right: 30px;   
+    padding: 12px 24px;       
+    font-size: 16px;          
+    background-color: rgba(0, 0, 0, 0.6); 
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;       
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10000; /* 最高层级，防止被点击区遮挡 */
+}
+
+.scene-back-btn:hover {
+    background-color: rgba(158, 105, 105, 0.8);
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.8);
+}
+

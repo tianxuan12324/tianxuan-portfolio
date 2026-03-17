@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>我的创意网页</title>
+    <!-- 这里是网页的设置，比如标题 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <br><br><br><br><br>
+    <!-- 这里是网页显示的内容 -->
+    <img src="images/logo.png" class="logo">
+    <!-- 按钮容器 -->
+<!-- 注意：这里加了一个 id="fixed-buttons" -->
+<div class="btn-container">
+    <button class="nav-btn">CG</button>
+    <button class="nav-btn" onclick="showScene()">场景</button>
+<button class="nav-btn" onclick="showGallery()">立绘</button>
+</div>
+
+<!-- 【修正版】CG 界面容器 (默认隐藏) -->
+<div id="cg-ui-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 9999; overflow: hidden;">
+    <!-- 1. 背景层 -->
+<div class="cg-background" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('images/UI.png'); background-size: cover; background-position: center; z-index: 0;"></div>
+<!-- 加上 onclick="goBack()" -->
+<button id="cg-back-btn" class="back-btn" onclick="goBack()">返回主界面</button>
+    <!-- 3. 滚动图片容器 (必须放在 cg-interface 内部！) -->
+    <div class="cg-container">
+        
+        <!-- 第1行：从左往右 (使用 row-right 类，假设 CSS 定义它为向右移动) -->
+        <div class="cg-row row-right" id="row-1">
+            <img src="images/cg1.png"><img src="images/cg2.png"><img src="images/cg3.png"><img src="images/cg4.png">
+            <img src="images/cg5.png"><img src="images/cg6.png"><img src="images/cg7.png"><img src="images/cg8.png">
+            <img src="images/cg9.png"><img src="images/cg10.png"><img src="images/cg11.png"><img src="images/cg12.png">
+            <img src="images/cg13.png"><img src="images/cg14.png"><img src="images/cg15.png"><img src="images/cg16.png">
+            <!-- 无缝复制 -->
+            <img src="images/cg1.png"><img src="images/cg2.png"><img src="images/cg3.png"><img src="images/cg4.png">
+            <img src="images/cg5.png"><img src="images/cg6.png"><img src="images/cg7.png"><img src="images/cg8.png">
+            <img src="images/cg9.png"><img src="images/cg10.png"><img src="images/cg11.png"><img src="images/cg12.png">
+            <img src="images/cg13.png"><img src="images/cg14.png"><img src="images/cg15.png"><img src="images/cg16.png">
+        </div>
+
+        <!-- 第2行：从右往左 (使用 row-left 类，假设 CSS 定义它为向左移动) -->
+        <div class="cg-row row-left" id="row-2">
+            <img src="images/cg17.png"><img src="images/cg18.png"><img src="images/cg19.png"><img src="images/cg20.png">
+            <img src="images/cg21.png"><img src="images/cg22.png"><img src="images/cg23.png"><img src="images/cg24.png">
+            <img src="images/cg25.png"><img src="images/cg26.png"><img src="images/cg27.png"><img src="images/cg28.png">
+            <img src="images/cg29.png"><img src="images/cg30.png"><img src="images/cg31.png"><img src="images/cg32.png">
+            <!-- 无缝复制 -->
+            <img src="images/cg17.png"><img src="images/cg18.png"><img src="images/cg19.png"><img src="images/cg20.png">
+            <img src="images/cg21.png"><img src="images/cg22.png"><img src="images/cg23.png"><img src="images/cg24.png">
+            <img src="images/cg25.png"><img src="images/cg26.png"><img src="images/cg27.png"><img src="images/cg28.png">
+            <img src="images/cg29.png"><img src="images/cg30.png"><img src="images/cg31.png"><img src="images/cg32.png">
+        </div>
+
+        <!-- 第3行：从左往右 (同第1行) -->
+        <div class="cg-row row-right" id="row-3">
+            <img src="images/cg33.png"><img src="images/cg34.png"><img src="images/cg35.png"><img src="images/cg36.png">
+            <img src="images/cg37.png"><img src="images/cg38.png"><img src="images/cg39.png"><img src="images/cg40.png">
+            <img src="images/cg41.png"><img src="images/cg42.png"><img src="images/cg43.png"><img src="images/cg44.png">
+            <img src="images/cg45.png"><img src="images/cg46.png"><img src="images/cg47.png"><img src="images/cg48.png">
+            <!-- 无缝复制 -->
+            <img src="images/cg33.png"><img src="images/cg34.png"><img src="images/cg35.png"><img src="images/cg36.png">
+            <img src="images/cg37.png"><img src="images/cg38.png"><img src="images/cg39.png"><img src="images/cg40.png">
+            <img src="images/cg41.png"><img src="images/cg42.png"><img src="images/cg43.png"><img src="images/cg44.png">
+            <img src="images/cg45.png"><img src="images/cg46.png"><img src="images/cg47.png"><img src="images/cg48.png">
+        </div>
+    </div>
+</div>
+
+
+<!-- 脚本引用 (确保只引用一次，且放在 body 结束前) -->
+<script src="script.js"></script>
+
+
+<!-- 新增：全屏查看器遮罩 (默认隐藏) -->
+<div id="fullscreen-overlay" style="display: none;">
+    <img id="fullscreen-img" src="" alt="Full Screen CG">
+    <div class="close-hint">再次点击关闭</div>
+</div>
+
+<!-- 在 <head> 中确保引入了 CSS -->
+<!-- <link rel="stylesheet" href="style.css"> -->
+
+<!-- 【场景界面容器】 (完全独立，没有 CG) -->
+<div id="scene-ui-overlay" class="scene-overlay">
+    
+    <!-- 1. 背景层 (请修改这里的图片路径) -->
+    <div class="scene-bg" style="background-image: url('images/UI.png');"></div>
+    
+    <!-- 2. 返回按钮 -->
+    <button class="scene-back-btn" onclick="closeScene()">返回主界面</button>
+    
+    <!-- 3. 内容区域 -->
+    <div class="scene-content">
+        <h1 style="color: white; text-shadow: 2px 2px 5px #000;"></h1>
+        <!-- 这里可以放立绘或其他内容 -->
+         <div class="scene-row row-right" style="display: flex; width: max-content; animation: scrollRight 60s linear infinite;">
+            <!-- 原始图片 1-15 -->
+            <img src="images/scene1.png"><img src="images/scene2.png"><img src="images/scene3.png"><img src="images/scene4.png"><img src="images/scene5.png">
+            <img src="images/scene6.png"><img src="images/scene7.png"><img src="images/scene8.png"><img src="images/scene9.png"><img src="images/scene10.png">
+            <img src="images/scene11.png"><img src="images/scene12.png"><img src="images/scene13.png"><img src="images/scene14.png"><img src="images/scene15.png">
+            <!-- 无缝复制：再放一遍 1-15 -->
+            <img src="images/scene1.png"><img src="images/scene2.png"><img src="images/scene3.png"><img src="images/scene4.png"><img src="images/scene5.png">
+            <img src="images/scene6.png"><img src="images/scene7.png"><img src="images/scene8.png"><img src="images/scene9.png"><img src="images/scene10.png">
+            <img src="images/scene11.png"><img src="images/scene12.png"><img src="images/scene13.png"><img src="images/scene14.png"><img src="images/scene15.png">
+        </div>
+
+        <!-- 第2行：scene16 - scene30 (向左滚动 row-left，方向相反更生动) -->
+        <div class="scene-row row-left" style="display: flex; width: max-content; animation: scrollLeft 60s linear infinite;">
+            <!-- 原始图片 16-30 -->
+            <img src="images/scene16.png"><img src="images/scene17.png"><img src="images/scene18.png"><img src="images/scene19.png"><img src="images/scene20.png">
+            <img src="images/scene21.png"><img src="images/scene22.png"><img src="images/scene23.png"><img src="images/scene24.png"><img src="images/scene25.png">
+            <img src="images/scene26.png"><img src="images/scene27.png"><img src="images/scene28.png"><img src="images/scene29.png"><img src="images/scene30.png">
+            <!-- 无缝复制：再放一遍 16-30 -->
+            <img src="images/scene16.png"><img src="images/scene17.png"><img src="images/scene18.png"><img src="images/scene19.png"><img src="images/scene20.png">
+            <img src="images/scene21.png"><img src="images/scene22.png"><img src="images/scene23.png"><img src="images/scene24.png"><img src="images/scene25.png">
+            <img src="images/scene26.png"><img src="images/scene27.png"><img src="images/scene28.png"><img src="images/scene29.png"><img src="images/scene30.png">
+        </div>
+
+        <!-- 第3行：scene31 - scene45 (向右滚动 row-right) -->
+        <div class="scene-row row-right" style="display: flex; width: max-content; animation: scrollRight 60s linear infinite;">
+            <!-- 原始图片 31-45 -->
+            <img src="images/scene31.png"><img src="images/scene32.png"><img src="images/scene33.png"><img src="images/scene34.png"><img src="images/scene35.png">
+            <img src="images/scene36.png"><img src="images/scene37.png"><img src="images/scene38.png"><img src="images/scene39.png"><img src="images/scene40.png">
+            <img src="images/scene41.png"><img src="images/scene42.png"><img src="images/scene43.png"><img src="images/scene44.png"><img src="images/scene45.png">
+            <!-- 无缝复制：再放一遍 31-45 -->
+            <img src="images/scene31.png"><img src="images/scene32.png"><img src="images/scene33.png"><img src="images/scene34.png"><img src="images/scene35.png">
+            <img src="images/scene36.png"><img src="images/scene37.png"><img src="images/scene38.png"><img src="images/scene39.png"><img src="images/scene40.png">
+            <img src="images/scene41.png"><img src="images/scene42.png"><img src="images/scene43.png"><img src="images/scene44.png"><img src="images/scene45.png">
+        </div>
+    </div>
+</div>
+
+<!-- 立绘界面容器 -->
+<!-- 【修改点】在这里绑定左右键事件，覆盖整个屏幕 -->
+<div id="gallery-overlay" 
+     class="gallery-overlay"
+     onclick="handleGalleryClick(event)"
+     oncontextmenu="handleGalleryRightClick(event)">
+    
+    <!-- 1. 背景层 -->
+    <div class="gallery-bg"></div>
+    
+    <!-- 2. 返回按钮 (右下角) -->
+    <!-- 【重要】给返回按钮加上 stopPropagation，防止点击返回时也触发翻页 -->
+    <button class="scene-back-btn" 
+            onclick="closeGallery(); event.stopPropagation();" 
+            oncontextmenu="event.stopPropagation();">
+        返回主界面
+    </button>
+    
+    <!-- 3. 内容区域：立绘图片 -->
+    <!-- 【修改点】这里不需要再写 onclick 了，删掉它们 -->
+    <img id="gallery-img" 
+         class="gallery-img" 
+         src="" 
+         alt="立绘展示">
+
+</div>
+
+</body>
+</html>
